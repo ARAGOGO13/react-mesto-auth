@@ -1,0 +1,7 @@
+.info-tip-tool {
+    padding: 36px 36px 60px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

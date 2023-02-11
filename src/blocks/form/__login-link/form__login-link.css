@@ -1,0 +1,9 @@
+.form__login-link {
+    font-size: 14px;
+    line-height: 17px;
+    display: flex;
+    justify-content: center;
+    padding-top: 15px;
+    text-decoration: none;
+    color: #FFF;
+}

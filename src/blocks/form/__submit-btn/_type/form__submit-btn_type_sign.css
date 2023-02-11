@@ -1,0 +1,14 @@
+.form__submit-btn_type_sign {
+    background-color: #FFF;
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    margin-bottom: 0;
+    margin-top: 0;
+    border: 0;
+}
+
+.form__submit-btn_type_sign:hover {
+    background-color: rgba(255, 255, 255, .8);
+}

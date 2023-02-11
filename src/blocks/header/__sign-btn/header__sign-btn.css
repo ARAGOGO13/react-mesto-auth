@@ -1,0 +1,10 @@
+.header__sign-btn {
+    background-color: transparent;
+    color: #A9A9A9;
+    margin: 0;
+    font-size: 18px;
+    line-height: 22px;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}

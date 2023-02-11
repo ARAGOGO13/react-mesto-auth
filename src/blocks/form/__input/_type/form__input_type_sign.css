@@ -1,0 +1,9 @@
+.form__input_type_sign {
+    color: #CCCCCC;
+    border-bottom: 1px solid rgba(204, 204, 204, .2);
+    max-width: 358px;
+}
+
+.form__input_type_sign:last-of-type {
+    margin-bottom: 216px;
+}
