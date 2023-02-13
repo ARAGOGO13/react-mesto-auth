@@ -28,7 +28,8 @@ function App() {
     const [loggedIn, setLoggedIn] = useState(false);
 
     const [userEmail, setUserEmail] = useState('');
-    const [signOutBtn, setSignOutBtn] = useState('');
+
+    const [signBtn, setSignBtn] = useState('');
 
     const [isInfoTipToolOpen, setIsInfoTipToolOpen] = useState(false);
     const [infoTipToolStatus, setInfoTipToolStatus] = useState(true);
@@ -41,23 +42,16 @@ function App() {
     const [selectedCard, setSelectedCard] = useState(null);
 
     useEffect(() => {
-        api.getProfileInformation()
-            .then((user) => {
-                setCurrentUser(user);
-            })
-            .catch((err) => {
-                console.log(err);
-            }, []);
-    }, []);
-
-    useEffect(() => {
-        api.getInitialCards()
-            .then((cardArray) => setCards(cardArray))
-            .catch((err) => console.log(err));
-    }, []);
-
-    useEffect(() => {
         handleCheckToken();
+    }, [])
+
+    useEffect(() => {
+        Promise.all([api.getProfileInformation(), api.getInitialCards()])
+            .then(([user, cards]) => {
+            setCurrentUser(user);
+            setCards(cards)
+        })
+            .catch((err) => console.log(err));
     }, [])
 
     function handleEditAvatarClick() {
@@ -152,12 +146,15 @@ function App() {
                     localStorage.setItem('jwt', res.token);
                     setUserEmail(email);
                     setLoggedIn(true);
-                    setSignOutBtn('Выйти');
+                    setSignBtn('Регистрация');
                     navigate('/', {replace: true});
                     return res;
                 }
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err)
+                handleOpenInfoTipTool(false);
+            });
     }
 
     function handleRegister(email, password) {
@@ -166,7 +163,7 @@ function App() {
                 console.log(res);
                 if (res) {
                     handleOpenInfoTipTool(true);
-                    setSignOutBtn('Выйти');
+                    setSignBtn('Вход');
                     navigate('/signin', {replace: true});
                 }
             })
@@ -182,9 +179,9 @@ function App() {
             auth(jwt)
                 .then((res) => {
                     if (res) {
-                        setUserEmail(res.email);
+                        setUserEmail(res.data.email);
                         setLoggedIn(true);
-                        setSignOutBtn('Выйти');
+                        setSignBtn('Выйти');
                         navigate('/', {replace: true})
                     }
                 })
@@ -196,14 +193,14 @@ function App() {
         localStorage.removeItem('jwt');
         setLoggedIn(false);
         setUserEmail('');
-        setSignOutBtn('');
+        setSignBtn('');
         navigate('/signup', {replace: true})
     }
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="root">
-                <Header email={userEmail} signBtn={signOutBtn} onSignOutBtnClick={handleSignOut}/>
+                <Header email={userEmail} signBtn={signBtn} onSignBtnClick={handleSignOut}/>
                 <Routes>
                     <Route path='/' element={
                         <ProtectedRouteElement

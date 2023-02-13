@@ -25,7 +25,7 @@ export default function Register({onSubmit}) {
                 <h2 className="form__heading form__heading_type_sign">Регистрация</h2>
                 <input
                     className="form__input form__input_type_sign"
-                    type="text"
+                    type="email"
                     name="sign-form_email"
                     required
                     minLength="2"
@@ -36,7 +36,7 @@ export default function Register({onSubmit}) {
                 <span className="form__input-error"></span>
                 <input
                     className="form__input form__input_type_sign"
-                    type="text"
+                    type="password"
                     name="sign-form_password"
                     required
                     minLength="2"
