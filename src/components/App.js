@@ -46,13 +46,15 @@ function App() {
     }, [])
 
     useEffect(() => {
-        Promise.all([api.getProfileInformation(), api.getInitialCards()])
-            .then(([user, cards]) => {
-            setCurrentUser(user);
-            setCards(cards)
-        })
-            .catch((err) => console.log(err));
-    }, [])
+        if (loggedIn) {
+            Promise.all([api.getProfileInformation(), api.getInitialCards()])
+                .then(([user, cards]) => {
+                    setCurrentUser(user);
+                    setCards(cards)
+                })
+                .catch((err) => console.log(err));
+        }
+    }, [loggedIn])
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true);
